@@ -1,5 +1,6 @@
 package com.example.roomdataase
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -31,7 +32,7 @@ class AddFragment : Fragment() {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
 
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
+        val id=requireActivity().intent.getIntExtra("id",1)
         binding.addBtn.setOnClickListener {
             insertDataToDatabase()
         }

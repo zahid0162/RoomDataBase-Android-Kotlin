@@ -27,7 +27,7 @@ class UserRepository(private val userDao: UserDao) {
     fun delete(employee: Employee) {
         userDao.delete(employee)
     }
-    fun getByDepartmentName(departmentName: String){
+    fun getByDepartmentName(departmentName: Int){
         getByDepartmentName.postValue(userDao.getByDepartment(departmentName))
     }
     fun getDepartmentById(departmentId: Int){

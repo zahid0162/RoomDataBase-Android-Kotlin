@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.room.Room
 import com.example.roomdataase.Department
 import com.example.roomdataase.Employee
 import com.example.roomdataase.EmployeeWithDepartment
@@ -27,7 +28,12 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
 
 
     init {
-        val userDao = UserDatabase.getDatabase(application).userDao()
+        val db = Room.databaseBuilder(
+            application.applicationContext,
+            UserDatabase::class.java,
+            "user_database"
+        ).build()
+        val userDao=db.userDao
         repository= UserRepository(userDao)
         readAllEmployee = repository.readAllEmployees
         employeeWithDepartment=repository.employeeWithDepartment
@@ -62,7 +68,7 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun getByDepartmentName(name:String){
+    fun getByDepartmentName(name:Int){
         viewModelScope.launch(Dispatchers.IO) {
             repository.getByDepartmentName(name)
         }

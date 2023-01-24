@@ -24,17 +24,22 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
-
+        val id=requireActivity().intent.getIntExtra("id",1)
+        println(id)
         val adapter = ListAdapter()
         val recyclerView = binding.recyclerview
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        mUserViewModel.readAllEmployee.observe(viewLifecycleOwner, Observer { user ->
-            adapter.setData(user)
-        })
-
+        mUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        mUserViewModel.getByDepartmentName(id)
+//        mUserViewModel.readAllEmployee.observe(viewLifecycleOwner, Observer { user ->
+//            adapter.setData(user)
+//        })
+        mUserViewModel.getByDepartmentName.observe(viewLifecycleOwner){
+            println("Position: $id")
+            adapter.setData(it)
+        }
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
@@ -79,4 +84,5 @@ class ListFragment : Fragment() {
         super.onDestroyView()
         _binding = null // <- whenever we destroy our fragment, _binding is set to null. Hence it will avoid memory leaks.
     }
+
 }

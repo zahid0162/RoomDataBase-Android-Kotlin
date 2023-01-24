@@ -9,7 +9,8 @@ import java.io.Serializable
     onDelete = ForeignKey.CASCADE)]
 )
 data class Employee(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     @ColumnInfo(name = "firstName")
     val firstName: String,
     @ColumnInfo(name = "lastName")

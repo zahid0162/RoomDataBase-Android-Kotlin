@@ -1,46 +1,41 @@
 package com.example.roomdataase
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.roomdataase.model.User
 
-class DepartmentListAdapter: RecyclerView.Adapter<DepartmentListAdapter.MyViewHolder>() {
-
-    private var userList = emptyList<Department>()
-
-    class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(
+class DepartmentListAdapter(
+    var departments: MutableList<Department>,
+    private val onItemClick: (Department) -> Unit
+) : RecyclerView.Adapter<DepartmentViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DepartmentViewHolder {
+        return DepartmentViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.custom_row_department,
                 parent,
-                false)
-        )
+                false
+            )
+        ){
+            onItemClick(departments[it])
+        }
     }
 
     override fun getItemCount(): Int {
-        return userList.size
+        return departments.size
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = userList[position]
+    override fun onBindViewHolder(holder: DepartmentViewHolder, position: Int) {
+        val currentItem = departments[position]
 
-        holder.itemView.findViewById<TextView>(R.id.dep_id).text=currentItem.id.toString()
-        holder.itemView.findViewById<TextView>(R.id.dep_name).text=currentItem.name
+        holder.itemView.findViewById<TextView>(R.id.dep_id).text = currentItem.id.toString()
+        holder.itemView.findViewById<TextView>(R.id.dep_name).text = currentItem.name
 
     }
 
     fun setData(user: List<Department>) {
-        this.userList = user
+        this.departments = user as MutableList<Department>
         notifyDataSetChanged()
     }
+
 }

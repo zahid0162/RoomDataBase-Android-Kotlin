@@ -11,10 +11,10 @@ import com.example.roomdataase.EmployeeWithDepartment
 interface UserDao {
 
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(employee: Employee)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDepartment(department: Department)
 
     @Update
@@ -35,8 +35,8 @@ interface UserDao {
     @Query("SELECT * FROM departments WHERE id = :departmentId")
     fun getDepartmentById(departmentId: Int): Department
 
-    @Query("SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE departments.name = :departmentName")
-    fun getByDepartment(departmentName: String): List<Employee>
+    @Query("SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE departments.id = :departmentName")
+    fun getByDepartment(departmentName: Int): List<Employee>
 
     @Query("SELECT * FROM employees WHERE salary > :minSalary")
     fun getByMinSalary(minSalary: Double): List<Employee>
