@@ -32,7 +32,6 @@ class AddFragment : Fragment() {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
 
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        val id=requireActivity().intent.getIntExtra("id",1)
         binding.addBtn.setOnClickListener {
             insertDataToDatabase()
         }
@@ -46,7 +45,7 @@ class AddFragment : Fragment() {
         val lastName = binding.addLastNameEt.text.toString()
         val age = binding.addAgeEt.text
         if(inputCheck(firstName, lastName, age)) {
-                val user = Employee(0, firstName, lastName, binding.addEmailEt.text.toString(),binding.addDepIdEt.text.toString().toInt(),age.toString().toDouble())
+                val user = Employee(firstName =  firstName,lastName= lastName,email= binding.addEmailEt.text.toString(), departmentId = binding.addDepIdEt.text.toString().toInt(), salary =age.toString().toDouble())
                 mUserViewModel.add(user)
                 Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_addFragment_to_listFragment)

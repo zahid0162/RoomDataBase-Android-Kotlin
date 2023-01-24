@@ -22,7 +22,7 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
     val readAllEmployee: LiveData<List<Employee>>
     val readAllDepartment: LiveData<List<Department>>
     val employeeWithDepartment: LiveData<List<EmployeeWithDepartment>>
-    val getByDepartmentName:LiveData<List<Employee>>
+    val getByDepartmentName:LiveData<EmployeeWithDepartment?>
     val getDepartmentById:LiveData<Department>
     private val repository: UserRepository
 
@@ -31,8 +31,9 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         val db = Room.databaseBuilder(
             application.applicationContext,
             UserDatabase::class.java,
-            "user_database"
-        ).build()
+            "user_database")
+        .addMigrations(UserDatabase.migration1To2)
+            .build()
         val userDao=db.userDao
         repository= UserRepository(userDao)
         readAllEmployee = repository.readAllEmployees

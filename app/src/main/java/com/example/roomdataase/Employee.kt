@@ -10,7 +10,7 @@ import java.io.Serializable
 )
 data class Employee(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    var id: Int = 0,
     @ColumnInfo(name = "firstName")
     val firstName: String,
     @ColumnInfo(name = "lastName")
@@ -22,3 +22,13 @@ data class Employee(
     @ColumnInfo(name = "salary")
     val salary: Double
 ) : Serializable
+
+data class DepartmentWithAllEmployees(
+
+    @Embedded val dep: Department,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "department_id"
+    )
+    val dogs: List<Employee>
+)

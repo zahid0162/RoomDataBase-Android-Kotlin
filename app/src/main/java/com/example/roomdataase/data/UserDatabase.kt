@@ -11,25 +11,21 @@ import com.example.roomdataase.Employee
 
 @Database(
     entities = [Employee::class,Department::class],
-    version = 1,
-//    autoMigrations = [
-//        AutoMigration(from = 1, to = 2),
-//        AutoMigration(from = 2, to = 3, spec = UserDatabase.Migration2To3::class),
-//    ],
+    version = 2,
     exportSchema = true
 )
 abstract class UserDatabase: RoomDatabase() {
     abstract val userDao: UserDao
 //    @RenameColumn(tableName = "User", fromColumnName = "created", toColumnName = "createdAt")
-//    class Migration2To3: AutoMigrationSpec
+//    class Migration1To: AutoMigrationSpec
 //
-//    companion object {
-//        val migration3To4 = object : Migration(3, 4) {
-//            override fun migrate(database: SupportSQLiteDatabase) {
-//                database.execSQL("CREATE TABLE IF NOT EXISTS school (name CHAR NOT NULL PRIMARY KEY)")
-//            }
-//        }
-//    }
+    companion object {
+        val migration1To2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS Project (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Name` TEXT NOT NULL)")
+            }
+        }
+    }
 
 //    companion object {
 //        @Volatile

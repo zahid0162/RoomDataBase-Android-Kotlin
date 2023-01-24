@@ -8,7 +8,7 @@ data class EmployeeWithDepartment (
         parentColumn = "id",
         entityColumn = "department_id"
     )
-    val employee: List<Employee>,
+    val employee: List<Employee>?,
     @Embedded
     val department: Department
 )

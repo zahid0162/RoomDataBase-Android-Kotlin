@@ -14,7 +14,7 @@ class UserRepository(private val userDao: UserDao) {
     val readAllEmployees: LiveData<List<Employee>> = userDao.getAll()
     val readAllDepartments: LiveData<List<Department>> = userDao.getAllDepartments()
     val employeeWithDepartment:LiveData<List<EmployeeWithDepartment>> = userDao.getAllWithDepartment()
-    val getByDepartmentName=MutableLiveData<List<Employee>>()
+    val getByDepartmentName=MutableLiveData<EmployeeWithDepartment>()
     val getDepartmentById=MutableLiveData<Department>()
     fun insert(employee: Employee) {
         userDao.insert(employee)

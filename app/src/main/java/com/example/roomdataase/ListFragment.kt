@@ -38,7 +38,10 @@ class ListFragment : Fragment() {
 //        })
         mUserViewModel.getByDepartmentName.observe(viewLifecycleOwner){
             println("Position: $id")
-            adapter.setData(it)
+            if (it != null) {
+                it.employee?.let { it1 -> adapter.setData(it1) }
+            }
+
         }
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)

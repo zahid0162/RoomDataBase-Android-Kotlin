@@ -22,9 +22,7 @@ class AddDepartment : AppCompatActivity() {
         binding = ActivityAddDepartmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-
-            populateDataBase()
-
+        populateDataBase()
         val recyclerView = binding.recyclerview
         recyclerView.layoutManager = LinearLayoutManager(this)
         mUserViewModel.readAllDepartment.observe(this) { user ->
@@ -57,7 +55,7 @@ class AddDepartment : AppCompatActivity() {
     }
     private fun populateDataBase() {
             (1..10).forEach { index ->
-                mUserViewModel.insertDepartment(Department(index, "Department$index"))
+                mUserViewModel.insertDepartment(Department(name =  "Department$index"))
             }
     }
 }
