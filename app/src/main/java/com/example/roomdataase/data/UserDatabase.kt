@@ -7,12 +7,14 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.roomdataase.Department
 import com.example.roomdataase.Employee
+import java.util.*
 
 
 @Database(
     entities = [Employee::class,Department::class],
-    version = 2,
-    exportSchema = true
+    version = 1,
+    exportSchema = true,
+
 )
 abstract class UserDatabase: RoomDatabase() {
     abstract val userDao: UserDao
@@ -22,7 +24,9 @@ abstract class UserDatabase: RoomDatabase() {
     companion object {
         val migration1To2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("CREATE TABLE IF NOT EXISTS Project (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Name` TEXT NOT NULL)")
+                database.execSQL("CREATE TABLE IF NOT EXISTS Project " +
+                        "(`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                        "`Name` TEXT NOT NULL)")
             }
         }
     }
@@ -48,5 +52,17 @@ abstract class UserDatabase: RoomDatabase() {
 //            }
 //        }
 //    }
+class Converters {
 
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? {
+        return if (value == null) null else Date(value)
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time
+    }
+
+}
 }

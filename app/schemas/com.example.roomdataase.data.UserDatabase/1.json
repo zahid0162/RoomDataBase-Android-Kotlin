@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9de7817dd4a57e451a7b5582396dcdc1",
+    "identityHash": "75e89a65fffeecd07dbb787f3e873df6",
     "entities": [
       {
         "tableName": "employees",
@@ -68,7 +68,7 @@
       },
       {
         "tableName": "departments",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `value` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -79,6 +79,12 @@
           {
             "fieldPath": "name",
             "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -96,7 +102,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9de7817dd4a57e451a7b5582396dcdc1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '75e89a65fffeecd07dbb787f3e873df6')"
     ]
   }
 }

@@ -41,7 +41,8 @@ class AddDepartment : AppCompatActivity() {
                 mUserViewModel.insertDepartment(
                     Department(
                         depId.text.toString().toInt(),
-                        depName.text.toString()
+                        depName.text.toString(),
+                        ""
                     )
                 )
                 depId.setText("")
@@ -55,7 +56,12 @@ class AddDepartment : AppCompatActivity() {
     }
     private fun populateDataBase() {
             (1..10).forEach { index ->
-                mUserViewModel.insertDepartment(Department(name =  "Department$index"))
+                mUserViewModel.insertDepartment(Department(name =  "Department${System.currentTimeMillis()}", value = ""))
             }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }
